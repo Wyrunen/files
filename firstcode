@@ -1,0 +1,49 @@
+Sub ChangeColor()
+  Dim cell, dataRange As Range
+  Dim dataRow, graphRow, counter As Integer
+  Dim columnLetters(4) As String
+  Dim dataArray(2) As String
+  Dim rangeToChange(11) As String
+  Dim colorsString As String
+  Dim colorsArray() As String
+  
+  columnLetters(0) = "C"
+  columnLetters(1) = "AJ"
+  columnLetters(2) = "AO"
+  columnLetters(3) = "AZ"
+  
+  rangeToChange(0) = "C"
+  rangeToChange(1) = "F"
+  rangeToChange(2) = "I"
+  rangeToChange(3) = "L"
+  rangeToChange(4) = "O"
+  rangeToChange(5) = "R"
+  rangeToChange(6) = "U"
+  rangeToChange(7) = "X"
+  rangeToChange(8) = "AA"
+  rangeToChange(9) = "AD"
+  rangeToChange(10) = "AG"
+  rangeToChange(11) = "AJ"
+  
+  graphRow = 23
+  dataRow = 45
+  
+  For i = 0 To 2
+    dataArray(i) = columnLetters(2) & dataRow + i & ":" & columnLetters(3) & dataRow + i
+  Next i
+  
+  colorsString = ""
+  For i = LBound(dataArray) To UBound(dataArray)
+    Set dataRange = Range(dataArray(i))
+    For Each cell In dataRange.Cells
+      colorsString = colorsString & cell.Font.Color & ","
+    Next cell
+    colorsString = Left(colorsString, Len(colorsString) - 1)
+    colorsArray = Split(colorsString, ",")
+
+    For j = LBound(colorsArray) To UBound(colorsArray)
+      Range(rangeToChange(j) & graphRow + i).Font.Color = colorsArray(j)
+    Next j
+    colorsString = ""
+  Next i
+End Sub
